@@ -1,11 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>電卓作業応援タイマー</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<h1>Hello</h1>
+
+
+    <!-- 1ページ目 -->
+    <section id="page1" class="page">
+
+        <h1>キャラクターを選ぼう！</h1>
+
+        <div class="character-list">
+
+            <button class="character-btn" data-character="cat">
+                ねこ
+            </button>
+
+            <button class="character-btn" data-character="dog">
+                いぬ
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- 2ページ目 -->
+    <section id="page2" class="page hidden">
+
+        <h1>作業タイマー</h1>
+
+        <div id="timer">00:00:00</div>
+
+        <img id="workImage" src="" alt="キャラクター">
+
+        <div class="buttons">
+            <button id="startBtn">作業開始</button>
+            <button id="finishBtn">作業完了</button>
+        </div>
+
+    </section>
+
+    <!-- 3ページ目 -->
+    <section id="page3" class="page hidden">
+
+        <h1>作業完了！</h1>
+
+        <p id="resultTime"></p>
+
+        <img id="resultImage" src="" alt="キャラクター">
+
+        <p id="comment"></p>
+
+        <button id="shareBtn">
+            Xで共有
+        </button>
+
+        <button id="restartBtn">
+            もう一度作業
+        </button>
+
+    </section>
+
+    <script src="script.js"></script>
+
+
 </body>
+
+</html>
+
+</body>
+
 </html>
