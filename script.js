@@ -36,14 +36,20 @@ const characterButtons =
 /*どのキャラを選んだか*/
 let selectedCharacter = "";
 
+/*作業開始した時間を入れる*/
 let startTime;
+/*止めるやつの基礎*/
 let timerId;
 
+/*経過時間*/
 let elapsedSeconds = 0;
 
+/*画像切り替え。どっちの画像を表示してるか覚える*/
 let imageIndex = 0;
 let imageTimer;
 
+
+/*キャラクターの設定*/
 const characters = {
     cat: {
         workImages: [
@@ -70,16 +76,23 @@ const characters = {
 // 1ページ目
 // --------------------
 
+/*ボタン達をひとつずつ取り出す*/
 for (const button of characterButtons) {
 
     button.addEventListener("click", () => {
 
+        /*どのキャラクターか取得*/
         selectedCharacter =
             button.dataset.character;
 
+        /*ページ切り替え
+        classListでpage1が持ってるclassの一覧を操作できる
+        HTMLのpage1のclassにhiddenを追加する*/
         page1.classList.add("hidden");
+        /*page2のhiddenを消す*/
         page2.classList.remove("hidden");
 
+        /*画像表示*/
         workImage.src =
             characters[selectedCharacter]
                 .workImages[0];
@@ -93,6 +106,9 @@ for (const button of characterButtons) {
 // --------------------
 
 startBtn.addEventListener("click", () => {
+
+    /*作業開始のボタンを消す*/
+    startBtn.style.display = "none";
 
     startTime = Date.now();
 
@@ -116,7 +132,7 @@ startBtn.addEventListener("click", () => {
             characters[selectedCharacter]
                 .workImages[imageIndex];
 
-    }, 2000);
+    }, 1000);
 
 });
 
@@ -221,6 +237,9 @@ restartBtn.addEventListener("click", () => {
     imageIndex = 0;
 
     timer.textContent = "00:00:00";
+
+    /*作業開始のボタンを復活する*/
+    startBtn.style.display = "inline-block";
 
     page3.classList.add("hidden");
     page1.classList.remove("hidden");
