@@ -39,8 +39,10 @@ body {
 }
 
 #resultImage {
-    width: 400px;
-    height: 400px;
+
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     object-fit: contain;
 }
 

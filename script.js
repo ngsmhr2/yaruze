@@ -51,13 +51,20 @@ let imageTimer;
 
 /*キャラクターの設定*/
 const characters = {
-    cat: {
+    runa: {
         workImages: [
-            "images/cat1.png",
-            "images/cat2.png"
+            "images/runa1.png",
+            "images/runa2.png"
         ],
         resultImage:
-            "images/cat3.png"
+            "images/runa3.png",
+
+        comments: {
+            short: "おつかれさまです！",
+            middle: "すごい！おつかれさまです！るな感激～！",
+            long: "おつかれさまですっ！るなのパフォーマンスで疲れを吹き飛ばします！"
+        }
+
     },
 
     dog: {
@@ -66,7 +73,14 @@ const characters = {
             "images/dog2.png"
         ],
         resultImage:
-            "images/dog3.png"
+            "images/dog3.png",
+
+        comments: {
+            short: "おつかれワン！",
+            middle: "いっぱい頑張ったワン！",
+            long: "最高の頑張りだったワン！！"
+        }
+
     }
 };
 
@@ -92,7 +106,7 @@ for (const button of characterButtons) {
         /*page2のhiddenを消す*/
         page2.classList.remove("hidden");
 
-        /*画像表示*/
+        /*画像の1枚目を表示*/
         workImage.src =
             characters[selectedCharacter]
                 .workImages[0];
@@ -105,29 +119,44 @@ for (const button of characterButtons) {
 // タイマー開始
 // --------------------
 
+/*作業開始ボタンがクリックされたら*/
 startBtn.addEventListener("click", () => {
 
-    /*作業開始のボタンを消す*/
+    /*作業開始のボタンを消す
+    cssにnoneを追加して消してる*/
     startBtn.style.display = "none";
 
-    startTime = Date.now();
+    /*作業完了ボタンを表示する*/
+    finishBtn.style.display = "inline-block";
 
+    /*今の時刻を記録する*/
+    startTime = Date.now();
+    /*セットインターバル→一定間隔ごとに繰り返す*/
     timerId = setInterval(() => {
 
+        /*今の時間と開始時間を引き算して、1000で割ってる
+        それをMath.floorで小数点以下を切り捨てて、経過時間として表示してる*/
         elapsedSeconds =
             Math.floor(
                 (Date.now() - startTime) / 1000
             );
 
+        /*下で作ってる関数*/
         updateTimer();
 
     }, 1000);
 
+    /*1秒ごとに画像を切り替える
+    setInterval→〇秒ごとにこの処理を繰り返してくれ*/
     imageTimer = setInterval(() => {
 
+        /*imageIndexは上でつくった、今どっちの画像を表示してるか覚えてる変数。
+        三項演算子。条件が正しければA、違えばB
+        imageIndexは0ですか？って聞いてる*/
         imageIndex =
             imageIndex === 0 ? 1 : 0;
 
+        /*画像変更*/
         workImage.src =
             characters[selectedCharacter]
                 .workImages[imageIndex];
@@ -171,35 +200,45 @@ function updateTimer() {
 // 作業完了
 // --------------------
 
+/*クリックされたら*/
 finishBtn.addEventListener("click", () => {
 
+    /*clear→消す、止める。interval→インターバル、一定時間ごとの処理
+    これでタイマーと画像切り替えをそれぞれ止めてる*/
     clearInterval(timerId);
     clearInterval(imageTimer);
 
+    /*前もやってた画面切り替え*/
     page2.classList.add("hidden");
     page3.classList.remove("hidden");
 
+    /*HTMLのとこにテキストコメントで書いてる*/
     resultTime.textContent =
         `今回は ${timer.textContent} 作業をしました！`;
 
+    /*結果画像の表示
+    上でやってたことがリザルトイメージに変わっただけ*/
     resultImage.src =
         characters[selectedCharacter]
             .resultImage;
 
-    if (elapsedSeconds < 3600) {
 
+    /*もしelapsedSecondsが3600より小さいなら*/
+    if (elapsedSeconds < 3600) {
+        /*いつもの。テキストコメント。セレクトキャラクター*/
         comment.textContent =
-            "よく頑張りました！";
+            characters[selectedCharacter].comments.short;
 
     } else if (elapsedSeconds < 10800) {
 
         comment.textContent =
-            "集中して取り組めましたね！";
+            characters[selectedCharacter].comments.middle;
 
     } else {
 
         comment.textContent =
-            "素晴らしい集中力です！！";
+            characters[selectedCharacter].comments.long;
+
     }
 });
 
@@ -230,17 +269,24 @@ shareBtn.addEventListener("click", () => {
 
 restartBtn.addEventListener("click", () => {
 
+    /*念のためタイマーと画像切り替えをもう一度止めてる*/
     clearInterval(timerId);
     clearInterval(imageTimer);
 
+    /*タイマーと画像表示をリセット*/
     elapsedSeconds = 0;
     imageIndex = 0;
 
+    /*タイマー表示を書き換えリセット*/
     timer.textContent = "00:00:00";
 
     /*作業開始のボタンを復活する*/
     startBtn.style.display = "inline-block";
 
+    /*作業完了のボタンを消す*/
+    finishBtn.style.display = "none";
+
+    /*1ページ目に戻す*/
     page3.classList.add("hidden");
     page1.classList.remove("hidden");
 });
