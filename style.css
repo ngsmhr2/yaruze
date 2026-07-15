@@ -96,3 +96,9 @@ button {
 .update-list::-webkit-scrollbar-thumb:hover {
     background: #666;
 }
+
+.update-list ul {
+    list-style: none;
+    padding-left: 0;
+    /* 左の余白も消す */
+}
