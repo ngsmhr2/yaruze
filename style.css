@@ -61,3 +61,38 @@ button {
     font-size: 24px;
     margin: 20px;
 }
+
+
+
+/*アプデ情報のやつ*/
+
+.update-box {
+    width: 500px;
+    max-width: 90%;
+    margin: 20px auto;
+}
+
+.update-list {
+    height: 250px;
+    /* ボックスの高さ */
+    overflow-y: auto;
+    /* 縦スクロール */
+    border: 2px solid #999;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+/* スクロールバーの見た目（Chrome・Edge・Safari） */
+.update-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.update-list::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 4px;
+}
+
+.update-list::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
